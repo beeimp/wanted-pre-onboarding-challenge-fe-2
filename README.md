@@ -1,6 +1,6 @@
 # wanted-pre-onboarding-challenge-fe-2
 
-프리온보딩 프론트엔드 챌린지
+[프리온보딩 프론트엔드 챌린지](http://www.beeimp.com/wanted-pre-onboarding-challenge-fe-2/)
 
 ## 챌린지 과제 가이드
 
