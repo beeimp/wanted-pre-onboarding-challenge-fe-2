@@ -10,59 +10,108 @@
  */
 
 /**
- * CREATE
- * 할 일을 추가할 수 있다.
- * 내용없이 추가할 수 없다.
- * @param {TodoModel} todo - 할 일
+ * TodoList
  */
-function createTodo(todo) {}
+class TodoList {
+  /**
+   * @param {TodoModel[]} todos
+   */
+  constructor(todos) {
+    this.todos = todos;
+  }
 
-/**
- * READ ALL
- * 모든 할 일을 조회할 수 있다.
- * @returns {TodoModel[]} - 모든 할 일
- */
-function getTodos() {}
+  /**
+   * CREATE
+   * 할 일을 추가할 수 있다.
+   * 내용없이 추가할 수 없다.
+   * @method
+   * @param {TodoModel} todo - 할 일
+   */
+  createTodo(todo) {
+    this.todos = [...this.todos, todo];
+  }
 
-/**
- * READ by ID
- * ID를 기반으로 특정 할 일을 조회할 수 있다.
- * @param {string} id - 아이디
- * @returns {TodoModel} - 할 일
- */
-function getTodoById(id) {}
+  /**
+   * READ ALL
+   * 모든 할 일을 조회할 수 있다.
+   * @returns {TodoModel[]} - 모든 할 일
+   */
+  getTodos() {
+    return this.todos;
+  }
 
-/**
- * UPDATE
- * ID를 제외한 모든 속성을 수정할 수 있다.
- * 특정 할 일의 특정 태그를 수정할 수 있다.
- */
-function updateTodo() {}
+  /**
+   * READ by ID
+   * ID를 기반으로 특정 할 일을 조회할 수 있다.
+   * @param {string} id - 아이디
+   * @returns {TodoModel} - 할 일
+   */
+  getTodoById(id) {
+    const getTodo = this.todos.find((todo) => todo.id === id);
+    if (!getTodo) throw new Error("해당 아이디를 찾을 수 없습니다.");
+    return getTodo;
+  }
 
-/**
- * DELETE
- * ID를 기반으로 특정 할 일을 삭제할 수 있다.
- * @param {string} id - 아이디
- */
-function deleteTodoById(id) {}
+  /**
+   * UPDATE
+   * ID를 제외한 모든 속성을 수정할 수 있다.
+   * 특정 할 일의 특정 태그를 수정할 수 있다.
+   * @param {string} id
+   * @param {TodoModel} newTodo
+   */
+  updateTodo(id, newTodo) {
+    const todoIndex = this.todos.findIndex((todo) => todo.id === id);
+    if (!todoIndex) throw new Error("해당 아이디를 찾을 수 없습니다.");
+    this.todos[todoIndex].content = newTodo.content;
+    this.todos[todoIndex].category = newTodo.category;
+    this.todos[todoIndex].isCompleted = newTodo.isCompleted;
+    if (newTodo.tags) {
+      this.todos[todoIndex].tags = newTodo.tags;
+    }
+  }
 
-/**
- * DELETE
- * 모든 할 일을 제거할 수 있다.
- */
-function deleteTodoAll() {}
+  /**
+   * DELETE
+   * ID를 기반으로 특정 할 일을 삭제할 수 있다.
+   * @param {string} id - 아이디
+   */
+  deleteTodoById(id) {
+    this.todos = this.todos.filter((todo) => todo.id !== id);
+  }
 
-/**
- * DELETE
- * 특정 할 일의 특정 태그를 삭제할 수 있다.
- * @param {string} id - 아이디
- * @param {string} tag - 태그
- */
-function deleteTodoTagById(id, tag) {}
+  /**
+   * DELETE
+   * 모든 할 일을 제거할 수 있다.
+   */
+  deleteTodoAll() {
+    this.todo = [];
+  }
 
-/**
- * DELETE
- * 특정 할 일의 모든 태그를 제거할 수 있다.
- * @param {string} id - 아이디
- */
-function deleteTodoTagsById(id) {}
+  /**
+   * DELETE
+   * 특정 할 일의 특정 태그를 삭제할 수 있다.
+   * @param {string} id - 아이디
+   * @param {string} tag - 태그
+   */
+  deleteTodoTagById(id, tag) {
+    const todoIndex = this.todos.findIndex((todo) => todo.id === id);
+    if (!index) throw new Error("해당 아이디를 찾을 수 없습니다.");
+
+    if (!this.todos[todoIndex].tags)
+      throw new Error("태그가 존재하지 않습니다.");
+    this.todo[todoIndex].tags.filter((tag) => tag !== tag);
+  }
+
+  /**
+   * DELETE
+   * 특정 할 일의 모든 태그를 제거할 수 있다.
+   * @param {string} id - 아이디
+   */
+  deleteTodoTagsById(id) {
+    const todoIndex = this.todos.findIndex((todo) => todo.id === id);
+    if (!index) throw new Error("해당 아이디를 찾을 수 없습니다.");
+    if (this.todos[todoIndex].tags) {
+      delete this.todo[todoIndex].tags;
+    }
+  }
+}
