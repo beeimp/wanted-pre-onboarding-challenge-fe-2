@@ -10,15 +10,23 @@
  * @property {string} category - 카테고리
  * @property {string[]} [tags] - 태그들
  */
+interface TodoModel {
+  id: string,
+  content: string,
+  isCompleted: boolean,
+  category: string,
+  tags?: string[]
+}
 
 /**
  * TodoList
  */
 class TodoList {
+  todos: TodoModel[];
   /**
    * @param {TodoModel[]} todos
    */
-  constructor(todos) {
+  constructor(todos: TodoModel[]) {
     this.todos = todos;
   }
 
@@ -29,7 +37,7 @@ class TodoList {
    * @method
    * @param {TodoModel} todo - 할 일
    */
-  createTodo(todo) {
+  createTodo(todo: TodoModel) {
     this.todos = [...this.todos, todo];
   }
 
@@ -38,7 +46,7 @@ class TodoList {
    * 모든 할 일을 조회할 수 있다.
    * @returns {TodoModel[]} - 모든 할 일
    */
-  getTodos() {
+  getTodos(): TodoModel[] {
     return this.todos;
   }
 
@@ -48,7 +56,7 @@ class TodoList {
    * @param {string} id - 아이디
    * @returns {TodoModel} - 할 일
    */
-  getTodoById(id) {
+  getTodoById(id: string): TodoModel {
     const getTodo = this.todos.find((todo) => todo.id === id);
     if (!getTodo) throw new Error("해당 아이디를 찾을 수 없습니다.");
     return getTodo;
@@ -61,7 +69,7 @@ class TodoList {
    * @param {string} id
    * @param {TodoModel} newTodo
    */
-  updateTodo(id, newTodo) {
+  updateTodo(id: string, newTodo: TodoModel) {
     const todoIndex = this.todos.findIndex((todo) => todo.id === id);
     if (!todoIndex) throw new Error("해당 아이디를 찾을 수 없습니다.");
     this.todos[todoIndex].content = newTodo.content;
@@ -77,7 +85,7 @@ class TodoList {
    * ID를 기반으로 특정 할 일을 삭제할 수 있다.
    * @param {string} id - 아이디
    */
-  deleteTodoById(id) {
+  deleteTodoById(id: string) {
     this.todos = this.todos.filter((todo) => todo.id !== id);
   }
 
@@ -95,7 +103,7 @@ class TodoList {
    * @param {string} id - 아이디
    * @param {string} tag - 태그
    */
-  deleteTodoTagById(id, tag) {
+  deleteTodoTagById(id: string, tag: string) {
     const todoIndex = this.todos.findIndex((todo) => todo.id === id);
     if (!todoIndex) throw new Error("해당 아이디를 찾을 수 없습니다.");
 
@@ -109,7 +117,7 @@ class TodoList {
    * 특정 할 일의 모든 태그를 제거할 수 있다.
    * @param {string} id - 아이디
    */
-  deleteTodoTagsById(id) {
+  deleteTodoTagsById(id: string) {
     const todoIndex = this.todos.findIndex((todo) => todo.id === id);
     if (!todoIndex) throw new Error("해당 아이디를 찾을 수 없습니다.");
     if (this.todos[todoIndex].tags) {
