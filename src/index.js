@@ -1,3 +1,5 @@
+//@ts-check
+
 /**
  * 할 일 모델링
  * @typedef TodoModel
@@ -84,7 +86,7 @@ class TodoList {
    * 모든 할 일을 제거할 수 있다.
    */
   deleteTodoAll() {
-    this.todo = [];
+    this.todos = [];
   }
 
   /**
@@ -95,11 +97,11 @@ class TodoList {
    */
   deleteTodoTagById(id, tag) {
     const todoIndex = this.todos.findIndex((todo) => todo.id === id);
-    if (!index) throw new Error("해당 아이디를 찾을 수 없습니다.");
+    if (!todoIndex) throw new Error("해당 아이디를 찾을 수 없습니다.");
 
     if (!this.todos[todoIndex].tags)
       throw new Error("태그가 존재하지 않습니다.");
-    this.todo[todoIndex].tags.filter((tag) => tag !== tag);
+      this.todos[todoIndex].tags = this.todos[todoIndex].tags?.filter((tag) => tag !== tag);
   }
 
   /**
@@ -109,9 +111,9 @@ class TodoList {
    */
   deleteTodoTagsById(id) {
     const todoIndex = this.todos.findIndex((todo) => todo.id === id);
-    if (!index) throw new Error("해당 아이디를 찾을 수 없습니다.");
+    if (!todoIndex) throw new Error("해당 아이디를 찾을 수 없습니다.");
     if (this.todos[todoIndex].tags) {
-      delete this.todo[todoIndex].tags;
+      delete this.todos[todoIndex].tags;
     }
   }
 }
